@@ -1,0 +1,15 @@
+---
+- name: "Post configuration of VM"
+  hosts: "{{ inventory_vm_name }}"
+  become: true
+
+  tasks:
+  
+    - name: Register VM with Red Hat subscription 
+      redhat_subscription:
+        state: present
+        username: "{{ rh_subs_username }}"
+        password: "{{ rh_subs_password }}"
+        consumer_name: "{{ inventory_vm_name }}"
+        auto_attach: true 
+        force_register: yes

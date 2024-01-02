@@ -1,0 +1,83 @@
+- name: Deploy RHEL vm in OpenShift Virtualization
+  hosts: localhost
+  connection: local
+  vars:
+    vm_name:
+    vm_namespace:
+    vm_disk_size:
+    vm_instance_type:
+    api_key: null
+  tasks:
+
+    - name: Use role to login to OpenShift
+      ansible.builtin.include_role:
+        name: openshift_username_password_auth
+      vars:
+        auth_action: login
+
+    - name: Create a VirtualMachine with a DataVolume template
+      kubevirt.core.kubevirt_vm:
+        api_key: "{{ api_key }}"
+        state: present
+        name: "{{ vm_name }}"
+        namespace: "{{ vm_namespace }}"
+        wait_timeout: 300
+        wait: true
+        labels:
+          app: test
+        instancetype:
+          name: "{{ vm_instance_type }}"
+        preference:
+          name: "{{ rhel_ver }}"
+        data_volume_templates:
+          - metadata:
+              name: "{{ vm_name }}-datavolume"
+            spec:
+              source:
+                pvc:
+                  name: "{{ pvc_src }}"
+                  namespace: openshift-virtualization-os-images
+              storage:
+                accessModes:
+                  - ReadWriteOnce
+              resources:
+                requests:
+                  storage: "{{ vm_disk_size }}"
+        spec:
+          domain:
+            devices:
+              disks:
+                - name: rootdisk
+                  disk:
+                    bus: virtio
+              interfaces:
+                - name: default
+                  masquerade: {}
+                - name: lab-network
+                  bridge: {}
+          networks:
+            - name: default
+              pod: {}
+            - name: lab-network
+              multus:
+                networkName: lab-network
+          volumes:
+            - dataVolume:
+                name: "{{ vm_name }}-datavolume"
+              name: rootdisk
+            - cloudInitNoCloud:
+                userData: |-
+                  #cloud-config
+                  user: ansible
+                  password: redhat123
+                  chpasswd: { expire: False }
+                  sudo: ALL=(ALL) NOPASSWD:ALL
+                  ssh_authorized_keys:
+                    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7P7WXjnJ/yNv1oOeRr8pXa4zVaa6l7LepRm9/cCHSNn5o7PmdpPhkkdrbHpw7lxzLqQTl/c5k/8tDGsWjeLQZi0gFh0ZyUE10HPhEmbl1HlV2o+GPEAb+QfuHsVSb3ixC3a7ceKKewbH8FAdwILGY+S33jZyXvu100KN25iW+T/qMv7Pv3XN7YDtkk7F+jWGcHOko/aXOJMpnrHjUkdEKF0TKFnXsj62JIPev+X0tAWvpPmRKHxX9/UD1uqFBlVFothMlHNJ3Tb5dh7RktJR4Wdcg3RN+Z0BQCuByfyN9wTUlo0nkMs+HqebozKrj01Se94QwFPR48md1QTxMMQMDgdMKZE4B0o1vDOFpQi+Pks6OFrp1hpNJq3LeTgzfJ3V552pfb4BO1vSD+iKcNYbXSC2YfbgBGRhSdyQucEFLOvE+sV9QBQHaW2vDjNYsQ0sAbDVDeAN1eadpYuOj2wPJzLVYjUXaT7zcTfM0ekOPmoPd9Ucl/dl2g/dGF4Ia1sM=
+              name: cloudinit
+
+    - name: Pass variables to Controllerwer Workflows
+      ansible.builtin.set_stats:
+        data:
+          inventory_vm_name: "{{ vm_namespace }}-{{ vm_name }}"
+          vm_namespace: "{{ vm_namespace }}"
