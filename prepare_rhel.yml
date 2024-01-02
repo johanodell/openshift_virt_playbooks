@@ -40,5 +40,5 @@
 
     - name: Register the insights client
       redhat.insights_register:
-      state: present
+        state: present
 
