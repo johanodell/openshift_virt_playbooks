@@ -1,22 +1,22 @@
 ---
 collections:
   - name: redhat.rhel_system_roles
-    source: https://console.redhat.com/api/automation-hub/
+    src: https://console.redhat.com/api/automation-hub/
   
   - name: microsoft.sql
-    source: https://console.redhat.com/api/automation-hub/
+    src: https://console.redhat.com/api/automation-hub/
 
   - name: redhat.insights
-    source: https://console.redhat.com/ansible/automation-hub/repo/published/
+    src: https://console.redhat.com/ansible/automation-hub/repo/published/
 
   - name: community.general
-    source: https://galaxy.ansible.com
+    src: https://galaxy.ansible.com
 
   - name: middleware_automation.wildfly
-    source: https://galaxy.ansible.com
+    src: https://galaxy.ansible.com
 
   - name: redhat.redhat_csp_download
-    source: https://console.redhat.com/ansible/automation-hub/
+    src: https://console.redhat.com/ansible/automation-hub/
 
   - name: redhat.eap
-    source: https://console.redhat.com/ansible/automation-hub/
+    src: https://console.redhat.com/ansible/automation-hub/
