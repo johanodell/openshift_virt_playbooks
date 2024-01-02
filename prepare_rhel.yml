@@ -39,6 +39,6 @@
       tags: packages
 
     - name: Register the insights client
-      redhat.insights_register:
+      redhat.insights.insights_register:
         state: present
 
