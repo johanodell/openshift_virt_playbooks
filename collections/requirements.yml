@@ -1,0 +1,44 @@
+---
+collections:
+  - name: redhat.rhel_system_roles
+    src: https://console.redhat.com/api/automation-hub/
+  
+#  - name: redhatinsights.insights
+#    src: https://console.redhat.com/api/automation-hub/
+
+  - name: microsoft.sql
+    src: https://console.redhat.com/api/automation-hub/
+
+  - name: ansible.controller
+    src: https://console.redhat.com/api/automation-hub/
+
+  - name: redhat.openshift
+    src: https://console.redhat.com/ansible/automation-hub/repo/published/
+    type: url  
+  
+  - name: redhat.insights
+    src: https://console.redhat.com/ansible/automation-hub/repo/published/
+
+  - name: redhat_cop.controller_configuration
+    src: https://galaxy.ansible.com
+
+  - name: community.vmware
+    src: https://galaxy.ansible.com
+
+  - name: community.general
+    src: https://galaxy.ansible.com
+
+  - name: kubevirt.core
+    src: https://galaxy.ansible.com
+   
+  - name: kubernetes.core
+    src: https://galaxy.ansible.com
+
+  - name: middleware_automation.wildfly
+    src: https://galaxy.ansible.com
+
+  - name: redhat.redhat_csp_download
+    src: https://console.redhat.com/ansible/automation-hub/
+
+  - name: redhat.eap
+    src: https://console.redhat.com/ansible/automation-hub/

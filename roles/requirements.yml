@@ -1,0 +1,12 @@
+roles:
+  - name: openshift_vm
+    src: git+https://github.com/pgustafs/ansible-role-openshift-vm.git
+ 
+  - name: openshift_namespace
+    src: git+https://github.com/pgustafs/ansible-role-openshift-namespace.git
+ 
+  - name: openshift_username_password_auth
+    src: git+https://github.com/pgustafs/ansible-role-openshift-username-password-auth.git
+ 
+  - name: openshift_networkbridge
+    src: git+https://github.com/pgustafs/ansible-role-openshift-networkbridge.git
