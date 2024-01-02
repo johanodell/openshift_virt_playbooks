@@ -12,9 +12,9 @@ collections:
   - name: ansible.controller
     src: https://console.redhat.com/api/automation-hub/
 
-  - name: redhat.openshift
-    src: https://console.redhat.com/ansible/automation-hub/repo/published/
-    type: url  
+#  - name: redhat.openshift
+#    src: https://console.redhat.com/ansible/automation-hub/repo/published/
+#    type: url  
   
   - name: redhat.insights
     src: https://console.redhat.com/ansible/automation-hub/repo/published/
