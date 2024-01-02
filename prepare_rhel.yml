@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ invenotry_vm_name }}"
+- hosts: "{{ inventory_vm_name }}"
   become: true
   vars:
     force_register: false
